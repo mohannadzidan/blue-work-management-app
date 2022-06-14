@@ -1,0 +1,32 @@
+.blue-list {
+    width: 260px;
+    border-radius: 5px;
+}
+
+.todo-item {
+    background-color: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 2px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 2px 2px -1px rgba(0, 0, 0, 0.75);
+}
+.todo-item:not(:last-child){
+    margin-bottom: 10px;
+
+}
+.todo-title {
+
+    word-wrap: break-word;
+    clear: both;
+    color: #172b4d;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.todo-description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-height: 60px;
+
+}

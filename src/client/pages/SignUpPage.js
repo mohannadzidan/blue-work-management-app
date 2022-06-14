@@ -11,7 +11,9 @@ import React, { useEffect, useState } from 'react';
 export default function SignUpPage({ }) {
 
     return (
-        <form>
+        <form method="post" action="/api/users" onSubmit={jsonForm((res) => {
+            console.log(res);
+        })}>
             <h3>Sign Up</h3>
             <div className="mb-3">
                 <label>First name</label>

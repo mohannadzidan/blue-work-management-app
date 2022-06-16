@@ -22,7 +22,7 @@ export default function SignInPage({ }) {
             <div className="auth-form row"  >
                 <div className="col d-none d-md-block container-center-div" >
                     <div className="w-100 text-center">
-                        <img src="https://play-lh.googleusercontent.com/pjUulZ-Vdo7qPKxk3IRhnk8SORPlgSydSyYEjm7fGcoXO8wDyYisWXwQqEjMryZ_sqK2" className="user-select-none w-75 " draggable='false'/>
+                        <img src="https://play-lh.googleusercontent.com/pjUulZ-Vdo7qPKxk3IRhnk8SORPlgSydSyYEjm7fGcoXO8wDyYisWXwQqEjMryZ_sqK2" className="user-select-none w-75 " draggable='false' />
                     </div>
                 </div>
 
@@ -32,14 +32,13 @@ export default function SignInPage({ }) {
                     action="/api/auth/signInEmailAndPassword"
                     onSubmit={jsonForm((response, error) => {
                         let errorMessage = 'Unknown Error has Occurred, please try again later!';
-                        if (!error && response.status) {
-                            nav('/');
-                        } else if (error && error.message === 'EMAIL_NOT_VERIFIED') {
+                        if (!error) {
+                            return nav('/');
+                        } else if (error.message === 'EMAIL_NOT_VERIFIED') {
                             errorMessage = 'Your email is not verified, Please check your email for verification steps and try again.'
-                        } else if (error && error.message === 'INCORRECT_EMAIL_OR_PASSWORD'){
+                        } else if (error.message === 'INCORRECT_EMAIL_OR_PASSWORD') {
                             errorMessage = 'The entered email or password is incorrect, please try again.'
                         }
-                        console.log(error)
                         if (error) {
                             toast.error(errorMessage, {
                                 position: "top-left",
@@ -75,7 +74,6 @@ export default function SignInPage({ }) {
                                     type="email"
                                     className="form-control"
                                     placeholder="Enter email"
-                                    minLength={12}
                                     required
                                 />
                             </div>

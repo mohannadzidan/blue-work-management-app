@@ -13,7 +13,7 @@
   "engines": {
     "node": "16.14.1"
   },
-  "author": "Sandeep Raveesh",
+  "author": "Mohannad Zidan",
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",

@@ -13,14 +13,16 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function SignUpPage({ }) {
     const nav = useNavigate();
     useEffect(() => {
-        client.me().then(() => nav('/')).catch(() => { })
+        client.me().then(() => nav('/')).catch((error) => {
+           
+        })
     }, []);
     return (
         <div className="screen-center-div">
             <div className="auth-form row"  >
                 <div className="col d-none d-md-block container-center-div" >
                     <div className="w-100 text-center">
-                        <img src="https://play-lh.googleusercontent.com/pjUulZ-Vdo7qPKxk3IRhnk8SORPlgSydSyYEjm7fGcoXO8wDyYisWXwQqEjMryZ_sqK2" className="w-75 " />
+                        <img src="https://play-lh.googleusercontent.com/pjUulZ-Vdo7qPKxk3IRhnk8SORPlgSydSyYEjm7fGcoXO8wDyYisWXwQqEjMryZ_sqK2" className="user-select-none w-75 " draggable='false' />
                     </div>
                 </div>
                 <form

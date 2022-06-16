@@ -9,7 +9,13 @@ export default function jsonForm(responseHandler) {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(res => res.json()).then(responseHandler).catch(err => {
+        }).then(res => res.json()).then((res) => {
+            if(res.status) {
+                responseHandler(res);
+            }else{
+                throw res;
+            }
+        }).catch(err => {
             responseHandler(undefined, err)
         })
     }

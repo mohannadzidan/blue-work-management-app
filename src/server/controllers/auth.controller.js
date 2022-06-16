@@ -13,7 +13,6 @@ const SALT = parseInt(process.env.SALT)
 exports.signUpEmailAndPassword = async (req, res) => {
     try {
         const { email, password, firstName, lastName } = req.body;
-        console.log(req);
         const userWithSameEmail = await User.findOne({ email: email })
         if (userWithSameEmail) {
             res.status(409).json(failResponse('EMAIL_ALREADY_EXISTS'));
@@ -48,7 +47,6 @@ exports.signUpEmailAndPassword = async (req, res) => {
 exports.signInEmailAndPassword = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(req.body)
         const user = await User.findOne({ email: email });
         if (!user) return res.status(401).json(failResponse('INCORRECT_EMAIL_OR_PASSWORD'));
         const isPasswordOk = await bcrypt.compare(password, user.password);

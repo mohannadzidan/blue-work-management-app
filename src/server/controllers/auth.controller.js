@@ -57,7 +57,7 @@ exports.requestPasswordReset = async (req, res) => {
         }
         // password reset token lives for 15 minutes
         const passwordResetToken = jwt.sign({ email: email }, process.env.SECRET, { issuer: 'blue-work-management-app.com', subject: 'password_reset_token', expiresIn: 900 });
-        const passwordResetUrl = process.env.APP_URL + '/reset-password?token=' + passwordResetToken;
+        const passwordResetUrl = process.env.APP_URL + '/password-reset?token=' + passwordResetToken;
         console.log('passwordResetUrl', passwordResetUrl);
         const passwordResetMail = await sendResetPasswordEmail(email, passwordResetUrl);
         if (passwordResetMail.status !== 200) throw new Error(passwordResetMail);

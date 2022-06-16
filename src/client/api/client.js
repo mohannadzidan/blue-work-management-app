@@ -1,4 +1,4 @@
-function preProcessTask(task){
+function preProcessTask(task) {
     // convert string dates to js dates
     task.startDate = new Date(task.startDate);
     task.endDate = new Date(task.endDate);
@@ -90,6 +90,67 @@ class ClientAPI {
             return Promise.reject(response);
         });
     }
+
+    verifyUserEmail(verificationToken) {
+        return fetch('/api/auth/verifyUserEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: verificationToken })
+        }).then(res => res.json()).then(response => {
+            if (response.status) {
+                return Promise.resolve(response.payload);
+            }
+            return Promise.reject(response);
+        });
+    }
+
+    resetPassword(resetToken, newPassword) {
+        return fetch('/api/auth/passwordReset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: resetToken, newPassword: newPassword })
+        }).then(res => res.json()).then(response => {
+            if (response.status) {
+                return Promise.resolve(response.payload);
+            }
+            return Promise.reject(response);
+        });
+    }
+
+    requestPasswordReset(email) {
+        return fetch('/api/auth/requestPasswordReset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        }).then(res => res.json()).then(response => {
+            if (response.status) {
+                return Promise.resolve(response.payload);
+            }
+            return Promise.reject(response);
+        });
+    }
+
+    validatePasswordResetToken(email) {
+        return fetch('/api/auth/validatePasswordResetToken', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: email })
+        }).then(res => res.json()).then(response => {
+            if (response.status) {
+                return Promise.resolve(response.payload);
+            }
+            return Promise.reject(response);
+        });
+    }
+
 }
 
 const client = new ClientAPI();

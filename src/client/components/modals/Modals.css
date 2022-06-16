@@ -1,6 +1,0 @@
-.task-title-input:not(:focus){
- border-color: transparent;
-}
-.task-title-input{
-    padding: 5px;
-}

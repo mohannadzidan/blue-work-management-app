@@ -1,0 +1,45 @@
+.task-title-input:not(:focus){
+ border-color: transparent;
+}
+.task-title-input{
+    padding: 5px;
+}
+
+
+.beautiful-modal{
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    background-color: white;
+    outline: 0;
+    border-radius: 10px;
+}
+
+.beautiful-modal-overlay{
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+
+.small-select{
+    font-size: 1em;
+    padding: 0.1em;
+    outline: 0;
+}
+/*smartphones mobiles (portrait)*/
+@media (max-width: 767px) {
+
+    .beautiful-modal{
+        width: 100%;
+        height: 100%;
+    }
+}

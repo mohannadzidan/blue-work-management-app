@@ -11,23 +11,19 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
-import HomePage from "./pages/HomePage";
+import BoardPage from "./pages/BoardPage";
 
 
 
 
 export default function App({ }) {
-
   return (
     <BrowserRouter>
-      <div className="d-flex flex-column">
-        
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/" element={<BoardPage />} />
           <Route path="/sign-up" element={<SignUpPage style={{ flexGrow: 100 }} />} />
           <Route path="/sign-in" element={<SignInPage style={{ flexGrow: 100 }} />} />
         </Routes>
-      </div>
     </BrowserRouter >
   );
 }

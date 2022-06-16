@@ -17,7 +17,7 @@ exports.createTask = async (req, res) => {
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         priority: req.body.priority,
-        status: false
+        status: req.body.status
     });
     res.json(successResponse(await task.save()));
 }
@@ -35,14 +35,12 @@ exports.patchTask = async (req, res) => {
         const { taskId } = req.params;
         const task = await Task.findOne({ _id: taskId, userId: userId });
         if (task) {
-            console.log('before=', task)
             task.title = req.body.title || task.title;
             task.description = req.body.description || task.description;
             task.list = req.body.list || task.list;
             task.startDate = req.body.startDate || task.startDate;
             task.priority = typeof req.body.priority !== 'undefined' ? req.body.priority : task.priority;
-            task.status = typeof req.body.status !== 'undefined' ? req.body.status : task.status;
-            console.log('after=', task)
+            task.status = req.body.status || task.status;
             res.status(201).json(successResponse(await task.save()));
         } else {
             res.status(404).json(failResponse('NOT_FOUND'));

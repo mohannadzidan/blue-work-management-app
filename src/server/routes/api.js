@@ -40,13 +40,12 @@ router.delete('/api/tasks/:taskId', validate([
     param('taskId').exists()
 ]), authenticate, deleteTask);
 router.post('/api/tasks',validate([
-    body('userId').isString(),
-    body('list').isString(),
+    body('status').isString(),
     body('title').isString(),
-    body('description').isString(),
+    body('description').default('').isString(),
     body('startDate').isISO8601(),
     body('endDate').isISO8601(),
-    body('priority').isString(),
+    body('priority').isNumeric(),
 ]), authenticate, createTask);
 
 router.use('/api/*', function (req, res) {

@@ -13,8 +13,7 @@ exports.me = (req, res) => {
     User.findOne({ _id: id })
         .then(user => {
             if (user){
-                user.password = undefined;
-                res.json(successResponse(user))
+                res.json(successResponse(safeUser(user)))
             }else{
                 res.status(401).cookie('access_token', null, { httpOnly: true, expires: new Date(Date.now()) }).json(failResponse('UNAUTHORIZED'))
             }

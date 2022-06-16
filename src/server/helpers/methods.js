@@ -31,6 +31,12 @@ exports.failResponse = (message, payload = null) => {
     return response
 }
 
+
+exports.safeUser = (user) => {
+    const safe = Object.assign({}, user);
+    safe.password = undefined;
+    return safe
+}
 /**
  *
  * @type {{message: string, status: boolean}}

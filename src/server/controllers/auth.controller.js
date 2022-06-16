@@ -1,4 +1,4 @@
-const { successResponse, failResponse } = require("../helpers/methods")
+const { successResponse, failResponse, safeUser } = require("../helpers/methods")
 const jwt = require('jsonwebtoken');
 const { User } = require("../db");
 const bcrypt = require('bcrypt');
@@ -26,11 +26,10 @@ exports.signUpEmailAndPassword = async (req, res) => {
             email: email,
             password: hashedPassword
         }).save();
-        user.password = undefined;
         const accessToken = jwt.sign({ id: user._id }, process.env.SECRET, { issuer: 'blue-work-management-app.com', subject: 'access_token', expiresIn: 86400 });
         res.status(201)
             .cookie('access_token', accessToken, { httpOnly: true, expires: new Date(Date.now() + 86400000) })
-            .json(successResponse(user));
+            .json(successResponse(safeUser(user)));
     } catch (e) {
         res.json(failResponse('INTERNAL_ERROR'));
         console.error(e);
@@ -50,11 +49,11 @@ exports.signInEmailAndPassword = async (req, res) => {
         const user = await User.findOne({ email: email });
         if (!user) return res.status(401).json(failResponse('INCORRECT_EMAIL_OR_PASSWORD'));
         const isPasswordOk = await bcrypt.compare(password, user.password);
-
-        if (isPasswordOk) {
-            user.password = undefined;
+        if (isPasswordOk && user.emailVerified) {
             const accessToken = jwt.sign({ id: user._id }, process.env.SECRET, { issuer: 'blue-work-management-app.com', subject: 'access_token', expiresIn: 86400 });
-            res.cookie('access_token', accessToken, { httpOnly: true, expires: new Date(Date.now() + 86400000) }).json(successResponse(user))
+            res.cookie('access_token', accessToken, { httpOnly: true, expires: new Date(Date.now() + 86400000) }).json(successResponse(safeUser(user)))
+        } else if (isPasswordOk) {
+            res.json(failResponse('EMAIL_NOT_VERIFIED'));
         } else {
             res.status(401).json(failResponse('INCORRECT_EMAIL_OR_PASSWORD'));
         }

@@ -29,7 +29,7 @@ exports.createTask = async (req, res) => {
  * @param {import("express").Response} res
  * @returns 
  */
-exports.patchTask = async (req, res) => {
+exports.updateTask = async (req, res) => {
     try {
         const { id: userId } = req.user;
         const { taskId } = req.params;

@@ -8,7 +8,7 @@ const { body, param } = require("express-validator")
 
 const auth = require('../controllers/auth.controller');
 const users = require('../controllers/users.controller');
-const { getTask, patchTask: updateTask, getAllTasks, deleteTask, createTask } = require("../controllers/tasks.controller");
+const { getTask, updateTask: updateTask, getAllTasks, deleteTask, createTask } = require("../controllers/tasks.controller");
 
 
 router.post('/api/auth/signUpEmailAndPassword', validate([
@@ -39,7 +39,7 @@ router.patch('/api/tasks/:taskId', validate([
 router.delete('/api/tasks/:taskId', validate([
     param('taskId').exists()
 ]), authenticate, deleteTask);
-router.post('/api/tasks',validate([
+router.post('/api/tasks', validate([
     body('status').isString(),
     body('title').isString(),
     body('description').default('').isString(),
@@ -49,6 +49,6 @@ router.post('/api/tasks',validate([
 ]), authenticate, createTask);
 
 router.use('/api/*', function (req, res) {
-    res.status(404).json(failResponse('NOT_FOUND'));
+    res.status(404).json(failResponse('ENDPOINT_NOT_FOUND'));
 })
 module.exports = router

@@ -11,7 +11,7 @@ export default function jsonForm(responseHandler) {
             }
         }).then(res => res.json()).then((res) => {
             if(res.status) {
-                responseHandler(res);
+                responseHandler(res.payload);
             }else{
                 throw res;
             }

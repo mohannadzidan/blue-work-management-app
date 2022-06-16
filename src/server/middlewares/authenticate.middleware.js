@@ -7,10 +7,10 @@ const methods = require('../helpers/methods')
  */
 module.exports = (req, res, next) => {
     try {
-        if (!req.cookies.access_token) throw 'Unauthorized';
+        if (!req.cookies.access_token) throw 'UNAUTHORIZED';
         req.user = jwt.verify(req.cookies.access_token, process.env.SECRET);
         next();
     } catch (err) {
-        return res.status(401).json(methods.failResponse(err));
+        return res.status(401).json(methods.failResponse('UNAUTHORIZED'));
     }
 }

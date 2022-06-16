@@ -1,4 +1,4 @@
-const { successResponse, failResponse } = require("../helpers/methods")
+const { successResponse, failResponse, safeUser } = require("../helpers/methods")
 const { User } = require("../db");
 
 

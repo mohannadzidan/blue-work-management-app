@@ -8,6 +8,7 @@ const userSchema = Schema({
     password: String,
     firstName: String,
     lastName: String,
+    emailVerified: Schema.Types.Boolean
 });
 const taskSchema = Schema({
     userId: Schema.Types.ObjectId,

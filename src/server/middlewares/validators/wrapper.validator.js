@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator")
 const methods = require("../../helpers/methods")
-
+const validationFailCode = parseInt(process.env.VALIDATION_FAIL_CODE)
 /**
  * sequential processing, stops running validations chain if the previous one have failed.
  */
@@ -17,7 +17,7 @@ exports.validate = (validations) => {
         }
 
         const error = errors.array()[0];
-        res.status(process.env.VALIDATION_FAIL_CODE).json(
+        res.status(validationFailCode).json(
             methods.failResponse(error.msg, error)
         )
     }

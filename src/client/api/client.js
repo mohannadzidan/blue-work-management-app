@@ -107,7 +107,7 @@ class ClientAPI {
     }
 
     resetPassword(resetToken, newPassword) {
-        return fetch('/api/auth/passwordReset', {
+        return fetch('/api/auth/resetPassword', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -136,13 +136,13 @@ class ClientAPI {
         });
     }
 
-    validatePasswordResetToken(email) {
+    validatePasswordResetToken(token) {
         return fetch('/api/auth/validatePasswordResetToken', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email: email })
+            body: JSON.stringify({ token: token })
         }).then(res => res.json()).then(response => {
             if (response.status) {
                 return Promise.resolve(response.payload);

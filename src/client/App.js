@@ -6,7 +6,6 @@ import {
   useNavigate
 } from "react-router-dom";
 import React from 'react';
-import './App.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import SignInPage from "./pages/SignInPage";

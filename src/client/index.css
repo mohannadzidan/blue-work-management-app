@@ -69,3 +69,17 @@ html,
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.clickable {
+
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px;
+  user-select: none;
+  transition: background-color 100ms;
+}
+
+.clickable:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}

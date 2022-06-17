@@ -5,7 +5,7 @@ const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY })
 
 /*
 
-mg.messages.create(DOMAIN, {
+mg.messages.create(process.env.MAILGUN_DOMAIN, {
     from: "Excited User <blueapp@sandbox-123.mailgun.org>",
     to: ['mohannad.s.zidan@gmail.com'],
     subject: "BlueApp Email Confirmation",
@@ -296,10 +296,10 @@ div[style *= "margin: 16px 0;"] {
 
 
 exports.sendResetPasswordEmail = (email, resetPasswordUrl) => {
-    return mg.messages.create(DOMAIN, {
+    return mg.messages.create(process.env.MAILGUN_DOMAIN, {
         from: "BlueApp <noreply@blueapp.com>",
         to: [email],
-        subject: "BlueApp Email Confirmation",
+        subject: "BlueApp Password Reset",
         text: "Testing some Mailgun awesomness!",
         html: `
         <!DOCTYPE html>

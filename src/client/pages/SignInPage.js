@@ -88,7 +88,7 @@ export default function SignInPage({ }) {
                                     required
                                 />
                                 <p className="forgot-password text-right">
-                                    Forgot <a href="#">password?</a>
+                                    Forgot <a href="#" onClick={() => nav('/request-password-reset')}>password?</a>
                                 </p>
                             </div>
                         </div>

@@ -37,7 +37,7 @@ router.post('/api/auth/validatePasswordResetToken', validate([
 
 router.post('/api/auth/resetPassword', validate([
     body('token').isString(),
-    body('newPassword').isEmail(),
+    body('newPassword').isString().isLength({ min: 8, max: 36 }),
 ]), auth.resetPassword);
 
 router.post('/api/auth/signOut', authenticate, auth.signOut);

@@ -3,21 +3,6 @@ const formData = require('form-data');
 const mailgun = new Mailgun(formData);
 const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY });
 
-/*
-
-mg.messages.create(process.env.MAILGUN_DOMAIN, {
-    from: "Excited User <blueapp@sandbox-123.mailgun.org>",
-    to: ['mohannad.s.zidan@gmail.com'],
-    subject: "BlueApp Email Confirmation",
-    text: "Testing some Mailgun awesomness!",
-    html: `
-    
-    `
-}).then(msg => console.log(msg)) // logs response data
-    .catch(err => console.log(err)); // logs any error
-
-*/
-
 const appLogoUrl = 'https://play-lh.googleusercontent.com/pjUulZ-Vdo7qPKxk3IRhnk8SORPlgSydSyYEjm7fGcoXO8wDyYisWXwQqEjMryZ_sqK2';
 const appUrl = '#';
 

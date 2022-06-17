@@ -21,7 +21,6 @@ exports.signUpEmailAndPassword = async (req, res) => {
         // verification token lives for an hour
         const verificationToken = jwt.sign({ email: email }, process.env.SECRET, { issuer: 'blue-work-management-app.com', subject: 'email_verification_token', expiresIn: 3600 });
         const verificationUrl = process.env.APP_URL + '/verification?token=' + verificationToken;
-        console.log('verificationUrl', verificationUrl);
         const confirmationMail = await sendConfirmationEmail(email, verificationUrl);
         if (confirmationMail.status !== 200) throw confirmMailStatus;
         const hashedPassword = await bcrypt.hash(password, SALT);
@@ -58,7 +57,6 @@ exports.requestPasswordReset = async (req, res) => {
         // password reset token lives for 15 minutes
         const passwordResetToken = jwt.sign({ email: email }, process.env.SECRET, { issuer: 'blue-work-management-app.com', subject: 'password_reset_token', expiresIn: 900 });
         const passwordResetUrl = process.env.APP_URL + '/password-reset?token=' + passwordResetToken;
-        console.log('passwordResetUrl', passwordResetUrl);
         const passwordResetMail = await sendResetPasswordEmail(email, passwordResetUrl);
         if (passwordResetMail.status !== 200) throw new Error(passwordResetMail);
         res.status(201).json(successResponse({ email: email }));

@@ -103,13 +103,10 @@ exports.resetPassword = async (req, res) => {
         try {
             var token = jwt.verify(tokenString, process.env.SECRET);
             if (token.sub !== 'password_reset_token') throw new Error();
-            res.status(201).json(successResponse({
-                email: token.email
-            }));
         } catch {
             return res.status(400).json(failResponse('INVALID_TOKEN'));
         }
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email: token.email });
         if (!user) {
             return res.status(404).json(failResponse('USER_NOT_FOUND'));
         }

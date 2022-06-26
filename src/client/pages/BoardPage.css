@@ -1,7 +1,12 @@
 .board{
-    max-width: 100vw;
     overflow-x: auto;
-    flex-grow: 1;
+    display: -ms-flexbox;
+	-ms-flex-direction: column;
+	-ms-flex-wrap: wrap;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .hello-message{

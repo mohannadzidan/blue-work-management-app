@@ -14,7 +14,6 @@ import LoadingScreen from "../components/loading-screen/LoadingScreen";
 import Todo from "../components/todo/Todo";
 import TaskInfoModal from "../components/forms/TaskInfoModal";
 import './BoardPage.css'
-import SortButton from "../components/sort-button/SortButton";
 const initialLists = [
     "To-Do",
     "In Progress",
@@ -22,6 +21,13 @@ const initialLists = [
     "Rework",
     "Completed",
 ]
+
+function taskComparator(a, b) {
+    const deltaPriority = b.priority - a.priority;
+    if (deltaPriority !== 0) return deltaPriority;
+    return a.startDate === b.startDate ? 0 : a.startDate > b.startDate ? 1 : -1;
+}
+
 export default function BoardPage({ style }) {
     const [user, setUser] = useState(null);
     const nav = useNavigate();
@@ -36,57 +42,37 @@ export default function BoardPage({ style }) {
             setUser(user);
             setLoading(false);
             return client.getAllTasks();
-        }).then(setTasks).catch(() => {
+        }).then(tasks => setTasks(tasks.sort(taskComparator))).catch(() => {
             nav('/sign-in');
         });
     }, []);
 
-    useEffect(() => {
-        sortTasks('Priority', 'descending');
-    }, []);
 
     const removeTask = function (task) {
         client.removeTask(task._id).then(() => {
-            setTasks(tasks.filter(t => t._id !== task._id));
+            setTasks(tasks.filter(t => t._id !== task._id).sort(taskComparator));
             setTaskInfoModalVisibility(false);
         }).catch(console.error);
     }
 
     const addTask = function (task) {
         client.createTask(task).then(task => {
-            setTasks([...tasks, task]);
+            setTasks([...tasks, task].sort(taskComparator));
             setAddTaskModalVisibility(false);
+
         }).catch(err => {
             console.error(err);
         });
     }
     const updateTask = function (task) {
         client.updateTask(task._id, task).then(updatedTask => {
-            setTasks([...tasks.filter(t => t._id !== updatedTask._id), updatedTask]);
+            setTasks([...tasks.filter(t => t._id !== updatedTask._id), updatedTask].sort(taskComparator));
             setTaskInfoModalVisibility(false);
         }).catch(err => {
             console.error(err);
         });
     }
 
-    function sortTasks(option, order) {
-        const sortedArray = [].concat(tasks);
-        switch (option) {
-            case 'Priority':
-                sortedArray.sort((a, b) => a.priority - b.priority)
-                break;
-            case 'Start Date':
-                sortedArray.sort((a, b) => a.startDate == b.startDate ? 0 : a.startDate > b.startDate ? 1 : -1)
-                break;
-            case 'End Date':
-                sortedArray.sort((a, b) => a.endDate == b.endDate ? 0 : a.endDate > b.endDate ? 1 : -1)
-                break;
-        }
-        if (order !== 'ascending') {
-            sortedArray.reverse();
-        }
-        setTasks(sortedArray);
-    }
     return (<div style={{ ...style }}>
         {loading ? <LoadingScreen /> : undefined}
         <nav className="navbar navbar-light">
@@ -107,9 +93,8 @@ export default function BoardPage({ style }) {
                 </ul>
             </div>
         </nav >
-        <SortButton className='my-2 ms-4' options={['Priority', 'Start Date', 'End Date']} onSortRequest={sortTasks} />
 
-        <div className="px-3 d-flex flex-row align-items-start board" >
+        <div className="mt-4 px-3 board" >
             {initialLists.map((status, i) => (
                 <List
                     key={i}

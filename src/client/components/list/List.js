@@ -7,7 +7,7 @@ import AddTaskModal from '../forms/AddTaskModal';
 
 export default function List({ status, children, onAddClick }) {
 
-    return (<div className="p-2 me-3 blue-list flex-shrink-0 d-flex flex-column" >
+    return (<div className="p-2 m-2 blue-list flex-shrink-0 d-flex flex-column" >
         <div className="list-title">{status}</div>
         <div className="my-1">
             {children}
